@@ -37,7 +37,7 @@ class ReadByGet extends Thread{
 			InputStream is = urlcon.getInputStream();
 			BufferedInputStream bis = new BufferedInputStream(is);
 			
-			FileOutputStream fos = new FileOutputStream("target.pdf");
+			FileOutputStream fos = new FileOutputStream("D:"+File.separator+"git"+File.separator+"NetScoketExam"+File.separator+"Exam1"+File.separator+"target.pdf");
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
 			
 			byte byt [] = new byte [6];

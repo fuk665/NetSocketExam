@@ -21,7 +21,7 @@ public class ChartSocket extends Thread {
 		
 		try {
 			//D:\git\NetScoketExam\Exam1\target.pdf
-			FileInputStream fis = new FileInputStream("D:"+File.separator+"git"+File.separator+"NetScoketExam"+File.separator+"Exam1"+File.separator+"target.pdf");
+			FileInputStream fis = new FileInputStream("D:"+File.separator+"target.pdf");
 			FileOutputStream fos = new FileOutputStream("target.pdf");
 			byte byt [] = new byte [10];
 			int len=-1;

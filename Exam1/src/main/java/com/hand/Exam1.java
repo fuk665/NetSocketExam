@@ -51,7 +51,7 @@ class ReadByGet extends Thread{
 			bos.close();
 			bis.close();
 			
-			System.out.println("ok");
+			System.out.println("ok！The file has been saved in the root directory of D");
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

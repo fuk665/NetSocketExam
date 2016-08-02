@@ -14,3 +14,8 @@ Exam3:
 cd Exam3
 mvn compile
 mvn clean compile exec:java -Dexec.mainClass="com.hand.Exam3" 
+
+Exam4:
+cd Exam4
+mvn compile
+mvn clean compile exec:java -Dexec.mainClass="com.hand.Exam4"

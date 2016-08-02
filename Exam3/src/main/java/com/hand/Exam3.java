@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,6 +27,9 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 public class Exam3 {
 
@@ -87,7 +91,7 @@ class Read extends Thread{
 			sa[end-2] = sa[end-2]+":"+sa[end-1]+":"+sa[end] ;
 			sa[end-1] = null;
 			sa[end] = null;
-			//å¯æ·»åŠ ä¸€æ­¥æ¢æ–°æ•°ç»„
+			//¿ÉÌí¼ÓÒ»²½»»ĞÂÊı×é
 //			for(int i=0;i<sa.length;i++){
 //				System.out.println(sa[i]);
 //			}
@@ -118,12 +122,31 @@ class Read extends Thread{
 				e0.appendChild(e5);
 				e0.appendChild(e6);
 				
+				JsonObject jo = new JsonObject();
+				JsonArray ja = new JsonArray();
+				
+				JsonObject jo1 = new JsonObject();
+				jo1.addProperty("name", sa[0]);
+				jo1.addProperty("open", sa[1]);
+				jo1.addProperty("close", sa[2]);
+				jo1.addProperty("current", sa[3]);
+				jo1.addProperty("hight", sa[4]);
+				jo1.addProperty("low", sa[5]);
+				
+				ja.add(jo1);
+				
 				Element [] ele = new Element [sa.length-8] ;
 				for(int j=0;j<sa.length-9;j++){
 					ele[j] = document.createElement("other");
 					ele[j].setTextContent(sa[j+6]);
 					e0.appendChild(ele[j]);
+					
+					jo1.addProperty("other", sa[j+6]);
+					ja.add(jo1);
+					
 				}
+				
+				jo.add("stock", ja);
 				
 				Element e7 = document.createElement("time");
 				e7.setTextContent(sa[end-2]);
@@ -135,9 +158,12 @@ class Read extends Thread{
 				Transformer tb = tfact.newTransformer();
 				StringWriter sw = new StringWriter();
 				
+				/**
+				 * Ö»ÓĞÍ¨¹ıStreamResult(Writer)¹¹Ôìº¯ÊıÉú³É²ÅÄÜÕıÈ·ÉèÖÃËõ½ø
+				 * £¨Í¨¹ıOutputStream»òÕßFileÉú³ÉµÄStreamResultÊÇÎŞ·¨ÉèÖÃËõ½øµÄ
+				 */
 				tb.setOutputProperty(OutputKeys.INDENT,"yes");
 				tb.setOutputProperty(OutputKeys.METHOD, "xml");
-				//tb.setOutputProperty(OutputKeys., "xml");
 				
 			//	tb.transform(new DOMSource(document), new StreamResult(sw));
 			//	System.out.println(sw.toString());
@@ -145,6 +171,14 @@ class Read extends Thread{
 				tb.transform(new DOMSource(document), new StreamResult(new File("Exam3.xml")));
 				System.out.println("XML has been created!");
 				
+				String strJson = jo.toString();
+			//	System.out.println(strJson);
+				FileOutputStream fosJson = new FileOutputStream(new File("Exam3.gson"));
+				OutputStreamWriter oswJson = new OutputStreamWriter(fosJson);
+				oswJson.write(strJson);
+				oswJson.close();
+				fosJson.close();
+				System.out.println("Json has been created!");
 				
 			} catch (ParserConfigurationException e) {
 				e.printStackTrace();

@@ -31,9 +31,8 @@ import org.w3c.dom.Element;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-public class Exam3 {
-
-	public static void main(String[] args) {
+public class Exam4 {
+public static void main(String[] args) {
 		
 		new Read().start();
 		
